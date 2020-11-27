@@ -1,0 +1,15 @@
+{
+	"vCenter": "10.50.1.15",
+	"vCenterUser": "svc_test_automation",
+	"vCenterUserPassword": "Password!",
+	"DomainUser": "Administrator",
+	"DomainUserPassword": "Password!",
+	"VMCount": 20,
+	"VMPrefix": "T1",
+	"BaseApplianceURL": "https://le-lab.lab.loginvsi.com",
+	"PublicAPISecret": "6ddc7ed0838f38af962b60b4d6b76a0cb87d0268",
+	"TestID": "41550f28-adf4-4d6a-b9ac-81ca9c60478a",
+	"ServersTXTFile": "Launchers.txt",
+	"PoolName": "WIN10-2004-OSOT",
+	"WebHookURI": "https://outlook.office.com/webhook/596ccd2c-6a34-40c6-8e7c-7a6c68dc161d@b82b0b30-39f9-412f-9eea-b629252434ad/IncomingWebhook/169558b9c9804cce9c3ad06b975c2688/01a793e4-2548-402d-b49f-e920ec3c63d8"
+}
