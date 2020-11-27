@@ -4,45 +4,13 @@ include:
   - template:                                                                  Code-Quality.gitlab-ci.yml
 
 stages:
-  - npm
   - test
-  - deploy
 
 default:
     before_script:
         - echo "Starting job..."
     after_script:
         - echo "Job executed successfully"
-
-npm:
-    stage:                                                                     npm
-    script:
-        - npm config set registry ${CI_NPM_REGISTRY}
-        - npm install
-    cache:
-        paths:
-            - node_modules/
-    artifacts:
-        expire_in:                                                             1 hour
-        when:                                                                  on_success
-        paths:
-            - node_modules/
-
-test_db:
-    stage:                                                                     test
-    when:                                                                      on_success
-    dependencies:
-        - npm
-    script:
-        - node ./models/user.js
-
-test:
-    stage:                                                                     test
-    when:                                                                      on_success
-    dependencies:
-        - npm
-    script:
-        - npm test
 
 code_quality:
   stage:                                                                       test
@@ -97,16 +65,6 @@ brakeman-sast:
   extends:                                                                     .sast
   image:
     name:                                                                      "$SAST_ANALYZER_IMAGE_PREFIX/brakeman:$SAST_ANALYZER_IMAGE_TAG"
-
-eslint-sast:
-  extends:                                                                     .sast
-  image:
-    name:                                                                      "$SAST_ANALYZER_IMAGE_PREFIX/eslint:$SAST_ANALYZER_IMAGE_TAG"
-
-nodejs-scan-sast:
-  extends:                                                                     .sast
-  image:
-    name:                                                                      "$SAST_ANALYZER_IMAGE_PREFIX/nodejs-scan:$SAST_ANALYZER_IMAGE_TAG"
 
 secrets-sast:
   extends:                                                                     .sast
@@ -210,8 +168,3 @@ license_scanning:
     expire_in:                                                                 1 week  # GitLab-specific
   dependencies:                                                                []
 
-
-trigger_build:
-  stage:                                                                       deploy
-  script:
-    - "curl -X POST -F token=7e868b65456e09d9f2f986f4987922 -F ref=master https://gitlab.com/api/v4/projects/22562690/trigger/pipeline"
